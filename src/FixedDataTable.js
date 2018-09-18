@@ -401,6 +401,11 @@ var FixedDataTable = createReactClass({
     onColumnReorderEndCallback: PropTypes.func,
 
     /**
+     * Callback that is called when reordering has been started
+     */
+    onColumnReorderStartCallback: PropTypes.func,
+
+    /**
      * Whether a column is currently being resized.
      */
     isColumnResizing: PropTypes.bool,
@@ -924,6 +929,8 @@ var FixedDataTable = createReactClass({
     var isFixed = this.state.headFixedColumns.some(function(column) {
       return column.props.columnKey === columnKey;
     });
+
+    this.props.onColumnReorderStartCallback ? this.props.onColumnReorderStartCallback(columnKey, width, left) : null;
 
     this.setState({
       isColumnReordering: true,
